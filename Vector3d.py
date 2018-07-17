@@ -5,8 +5,7 @@ np.seterr(all="raise")
 
 class Vector3d:
     """3DVector."""
-
-    def __init__(self, x, y, z):
+    def __init__(self, x=0.0, y=0.0, z=0.0):
         """Constructor."""
         self.__v = np.zeros((3), dtype='double')
         self.__v[0] = x
@@ -24,6 +23,10 @@ class Vector3d:
     def get_z(self):
         """Return z."""
         return self.__v[2]
+
+    def get_v(self):
+        """Return z."""
+        return self.__v
 
     def set_x(self, x):
         """Set x."""
@@ -49,26 +52,26 @@ class Vector3d:
 
     def __add__(self, other):
         """Addition."""
-        vec = Vector3d.zerovector()
+        vec = Vector3d()
         vec.__v = self.__v + other.__v
         return vec
 
     def __sub__(self, other):
         """Subtraction."""
-        vec = Vector3d.zerovector()
+        vec = Vector3d()
         vec.__v = self.__v - other.__v
         return vec
 
     def __mul__(self, other):
         """Vector times scalar."""
-        vec = Vector3d.zerovector()
+        vec = Vector3d()
         vec.__v = self.__v * other
         return vec
 
     def __truediv__(self, other):
         """Vector divided by scalar."""
         try:
-            vec = Vector3d.zerovector()
+            vec = Vector3d()
             vec.__v = self.__v / other
         except FloatingPointError as e:
             print(e)
@@ -87,13 +90,13 @@ class Vector3d:
 
     def __xor__(self, other):
         """Outer product."""
-        vec = Vector3d.zerovector()
+        vec = Vector3d()
         vec.__v = np.cross(self.__v, other.__v)
         return vec
 
     def __rmul__(self, other):
         """Scalar times vector."""
-        vec = Vector3d.zerovector()
+        vec = Vector3d()
         vec.__v = self.__v * other
         return vec
 
@@ -153,7 +156,7 @@ class Vector3d:
                         [0.0, valCos, -valSin],
                         [0.0, valSin, valCos]])
 
-        vec = Vector3d.zerovector()
+        vec = Vector3d()
         vec.__v = mat @ self.__v
 
         return vec
@@ -169,7 +172,7 @@ class Vector3d:
                         [    0.0,  1.0,    0.0],
                         [-valSin,  0.0, valCos]])
 
-        vec = Vector3d.zerovector()
+        vec = Vector3d()
         vec.__v = mat @ self.__v
 
         return vec
@@ -185,7 +188,7 @@ class Vector3d:
                         [valSin,  valCos, 0.0],
                         [   0.0,     0.0, 1.0]])
 
-        vec = Vector3d.zerovector()
+        vec = Vector3d()
         vec.__v = mat @ self.__v
 
         return vec
@@ -193,7 +196,3 @@ class Vector3d:
     def print_self(self):
         """Print each component."""
         print(self.__v)
-
-    @staticmethod
-    def zerovector():
-        return Vector3d(0.0, 0.0, 0.0)
